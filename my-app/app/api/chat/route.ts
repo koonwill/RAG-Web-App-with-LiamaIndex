@@ -51,15 +51,10 @@ export async function POST(request: NextRequest) {
 
     const chatEngine = await createChatEngine(llm);
 
-    // Convert message content from Vercel/AI format to LlamaIndex/OpenAI format
-    const userMessageContent = convertMessageContent(
-      userMessage.content,
-      data?.imageUrl,
-    );
 
     // Calling LlamaIndex's ChatEngine to get a streamed response
     const response = await chatEngine.chat({
-      message: userMessageContent,
+      message: userMessage.content,
       chatHistory: messages,
       stream: true,
     });
